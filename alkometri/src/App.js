@@ -5,37 +5,53 @@ import React, {useState} from 'react'
 
 function App() {
 
-  const [age, setAge ] = useState(0) 
-  const [upper, setUpper] = useState(0) 
-  const [lower, setLower] = useState(0) 
-  
+  const [weight, setWeight ] = useState(0) 
+  const [bottles, setBottles] = useState(0) 
+  const [time, setTime] = useState(0) 
+  const [result, setResult] = useState(0)
 
-  const result = lower + "-" + upper
+  
+  const litres = bottles *0.33
+  const grams = litres * 8 * 4.5
+  const burning = weight / 10
+  const gramsLeft = grams - (burning * time)
+
 
 function handleSubmit(e) {
 
 
   e.preventDefault()
-  const conversion1 = (220 - age) * 0.65
-  setLower(conversion1)
 
-  const conversion2 = (220 - age) * 0.85
-  setUpper(conversion2)
 
+  const conversion1 = gramsLeft / (weight * 0.7)
   
+
+  if (conversion1 < 0) {setResult(0)}
+else {setResult(conversion1)}
+
 }
 
 
   return (
     <form onSubmit = {handleSubmit}>
 
-    <h3>HRLC</h3>
+    <h3>Joelin humalamittari</h3>
     
-    <label>Age</label>
-    <input type="number" value={age} onChange={e => setAge(e.target.value)}/>
+    <label>Weight</label>
+    <input type="number" value={weight} onChange={e => setWeight(e.target.value)}/>
 
-    <label> Limits</label>
+    <label>Bottles</label>
+    <input type="number" value={bottles} onChange={e => setBottles(e.target.value)}/>
+
+    <label>Time</label>
+    <input type="number" value={time} onChange={e => setTime(e.target.value)}/>
+
+   
+
+    <label> Promillemäärä:</label>
     <output> {result} </output>
+
+  
 
     <button> Laske</button>
     </form>
