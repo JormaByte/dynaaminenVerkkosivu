@@ -8,14 +8,11 @@ function App() {
   const [weight, setWeight ] = useState(0) 
   const [bottles, setBottles] = useState(0) 
   const [time, setTime] = useState(0) 
+  const [gender, setGender] = useState('male')
   const [result, setResult] = useState(0)
+ 
   
-
-  
-  const litres = bottles *0.33
-  const grams = litres * 8 * 4.5
-  const burning = weight / 10
-  const gramsLeft = grams - (burning * time)
+ const gramsLeft = (((bottles * 0.33) * 8) * 4.5 - ((weight / 10) * time)) 
 
 
 function handleSubmit(e) {
@@ -23,13 +20,23 @@ function handleSubmit(e) {
 
   e.preventDefault()
 
+  let conversion = 0
 
-  const conversion1 = gramsLeft / (weight * 0.7)
-  const conversion2 = gramsLeft / (weight * 0.6)
+  if (gender === 'female') {
+
+    conversion = gramsLeft / (weight * 0.6)
+  }
+
+  else {
+
+    conversion = gramsLeft / (weight * 0.7)
+  }
+
+ 
   
 
-  if (conversion1 , conversion2 < 0) {setResult(0)}
-else {setResult("If the user is male " + conversion1 + ". If the user is female " + conversion2)}
+  if (conversion < 0) {setResult(0)}
+else {setResult(conversion)}
 
 
 }
@@ -97,16 +104,23 @@ else {setResult("If the user is male " + conversion1 + ". If the user is female 
 
     </div>
 
+   <div>
+
+        <label>Gender</label>
+        <input type="radio" name="gender" value="male" defaultChecked onChange={e => setGender(e.target.value)}/><label>Male</label>
+        <input type="radio" name="gender" value="female" onChange={e => setGender(e.target.value)}/><label>Female</label>
+
+      </div>
 
     <div>
 
     <label> Blood alcohol level:</label>
     <output> {result} </output>
+    
     <button> Calculate</button>
-
     </div>    
 
-    
+   
     </form>
   )
 }
