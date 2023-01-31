@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, {useState} from 'react'
 
@@ -43,6 +42,7 @@ else {setResult(conversion)}
 
 
   return (
+    <>
     <form onSubmit = {handleSubmit}>
 
     <h3>The alcohol blood level calculator</h3>
@@ -122,6 +122,7 @@ else {setResult(conversion)}
 
    
     </form>
+    </>
   )
 }
 
