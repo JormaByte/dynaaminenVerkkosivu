@@ -115,7 +115,7 @@ else {setResult(conversion)}
     <div>
 
     <label> Blood alcohol level:</label>
-    <output> {result} </output>
+    <output> {result.toFixed(2)} </output>
     
     <button> Calculate</button>
     </div>    
