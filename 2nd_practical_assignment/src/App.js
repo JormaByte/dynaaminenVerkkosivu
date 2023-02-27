@@ -24,9 +24,9 @@ function Cocktail() {
       <h1>{cocktail.strDrink}</h1>
       <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} />
 
-
+      
       <h3>Instructions:</h3>
-      <p class="instructions">{cocktail.strInstructions}</p>
+      <p class="instructions"> {cocktail.strInstructions} ({cocktail.strAlcoholic})<br></br> Served in: {cocktail.strGlass}</p>
 
         {/* Paikat jokaiselle mahdolliselle ainesosalle: */}
 
