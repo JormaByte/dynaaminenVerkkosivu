@@ -1,62 +1,57 @@
-import React, {useState} from 'react'
-
-import './App.css'
-
-const URL = 'https://api.exchangerate.host/latest'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./App.css"
 
 
-function App() {
+const URL = "https://www.thecocktaildb.com/api/json/v1/1/random.php"
 
-  const [eur, setEur] = useState(0)
-  const [gbp, setGbp] = useState(0)
-  const [rate, setRate] = useState(0)
+function Cocktail() {
+  const [cocktail, setCocktail] = useState({});
 
+  useEffect(() => {
+    async function fetchData() {
 
-async function convert(e) {
+      const response = await axios.get(URL);
 
-  e.preventDefault()
-
-  try {
-    const address = URL
-    const response = await fetch(address)
-
-    if (response.ok) {
-
-      const json = await response.json()
-      setRate(json.rates.GBP)
-      setGbp(eur * json.rates.GBP)
-    } else {
-
-      alert('Error retrieving exchange rate!')
+      setCocktail(response.data.drinks[0]);
     }
-  } catch (err) {
-    alert(err)
-  }
-}
+
+    fetchData();
+  }, []);
 
   return (
+    <div>
+      <h1>{cocktail.strDrink}</h1>
+      <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} />
 
-    <div id="container">
-      <form onSubmit={convert}>
-        <div>
-          
-          <label>Eur</label>&nbsp;
-          <input type="number" step="0.01" value={eur} onChange={e => setEur(e.target.value)} />
 
-          <output>{rate}</output>
-        </div>
-        <div>
-          <label>Gbp</label>
-          <output>{gbp.toFixed(2)} €</output>
-        </div>
+      <h3>Instructions:</h3>
+      <p class="instructions">{cocktail.strInstructions}</p>
 
-        <div>
-          <button> Calculate </button>
-        </div>
-        </form>
-    </div>
-  )
+        {/* Paikat jokaiselle mahdolliselle ainesosalle: */}
+
+      <h3>Ingredients:</h3>
     
+      <ol class="ingredients">
+        <p>{cocktail.strIngredient1} {cocktail.strMeasure1}</p>
+        <p>{cocktail.strIngredient2} {cocktail.strMeasure2}</p>
+        <p>{cocktail.strIngredient3} {cocktail.strMeasure3}</p>
+        <p>{cocktail.strIngredient4} {cocktail.strMeasure4}</p>
+        <p>{cocktail.strIngredient5} {cocktail.strMeasure5}</p>
+        <p>{cocktail.strIngredient6} {cocktail.strMeasure6}</p>
+        <p>{cocktail.strIngredient7} {cocktail.strMeasure7}</p>
+        <p>{cocktail.strIngredient8} {cocktail.strMeasure8}</p>
+        <p>{cocktail.strIngredient9} {cocktail.strMeasure9}</p>
+        <p>{cocktail.strIngredient10} {cocktail.strMeasure10}</p>
+        <p>{cocktail.strIngredient11} {cocktail.strMeasure11}</p>
+        <p>{cocktail.strIngredient12} {cocktail.strMeasure12}</p>
+        <p>{cocktail.strIngredient13} {cocktail.strMeasure13}</p>
+        <p>{cocktail.strIngredient14} {cocktail.strMeasure14}</p>
+        <p>{cocktail.strIngredient15} {cocktail.strMeasure15}</p>
+      </ol>
+
+    </div>
+  );
 }
 
-export default App;
+export default Cocktail;
